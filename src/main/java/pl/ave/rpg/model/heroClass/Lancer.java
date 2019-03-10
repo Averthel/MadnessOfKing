@@ -9,8 +9,8 @@ public class Lancer extends Hero {
     private int str;
     private String[] eq;
 
-    public Lancer(String name, String className){
-        super(name, className);
+    public Lancer(String name, String className, int level, int exp){
+        super(name, className, level, exp);
         hp = 120;
         str = 15;
         eq = new String[10];
@@ -47,5 +47,28 @@ public class Lancer extends Hero {
                 ", str=" + str +
                 ", eq=" + Arrays.toString(eq) +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Lancer)) return false;
+        if (!super.equals(o)) return false;
+
+        Lancer lancer = (Lancer) o;
+
+        if (getHp() != lancer.getHp()) return false;
+        if (getStr() != lancer.getStr()) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(getEq(), lancer.getEq());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + getHp();
+        result = 31 * result + getStr();
+        result = 31 * result + Arrays.hashCode(getEq());
+        return result;
     }
 }

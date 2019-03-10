@@ -10,8 +10,8 @@ public class Paladyn extends Hero {
     private int str;
     private String eq[];
 
-    public Paladyn(String name, String className) {
-        super(name, className);
+    public Paladyn(String name, String className, int level, int exp) {
+        super(name, className, level, exp);
         hp = 150;
         str = 12;
         eq = new String[10];
@@ -48,7 +48,31 @@ public class Paladyn extends Hero {
         return super.toString() + " {" +
                 "hp=" + hp +
                 ", str=" + str +
-                ", eq=" + Arrays.toString(eq) +
+                ", eq=" +
+                Arrays.toString(eq) +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Paladyn)) return false;
+        if (!super.equals(o)) return false;
+
+        Paladyn paladyn = (Paladyn) o;
+
+        if (getHp() != paladyn.getHp()) return false;
+        if (getStr() != paladyn.getStr()) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(getEq(), paladyn.getEq());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + getHp();
+        result = 31 * result + getStr();
+        result = 31 * result + Arrays.hashCode(getEq());
+        return result;
     }
 }

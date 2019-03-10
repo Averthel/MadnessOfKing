@@ -1,5 +1,7 @@
 package pl.ave.rpg.app;
 
+
+import pl.ave.rpg.Enum.Option;
 import pl.ave.rpg.model.Hero;
 import pl.ave.rpg.model.Library;
 import pl.ave.rpg.util.DataReader;
@@ -14,15 +16,20 @@ public class GameControl {
     DataReader reader = new DataReader();
     private Library library = new Library();
 
-    int option;
-    public void controlLoop() {
-        displayMenu();
-        while ((option = reader.getint()) != EXIT) {
-            if (option == NEW_GAME) {
 
-            } else if (option == ADD_HERO) {
+
+    public void controlLoop()  {
+        Option option;
+
+        displayMenu();
+        while ((option = Option.createFromInt(reader.getInt())) != Option.EXIT) {
+            if (option == Option.NEW_GAME) {
+                Test ts = new Test();
+                ts.start(library);
+                break;
+            } else if (option == Option.ADD_HERO) {
                 addHero();
-            } else if (option == SHOW_HERO) {
+            } else if (option == Option.SHOW_HERO) {
                 library.printHero();
             } else {
                 System.out.println("Ups! wygląda na to, że nie ma takiej opcji");
@@ -35,10 +42,9 @@ public class GameControl {
     }
 
     private void displayMenu() {
-        System.out.println(NEW_GAME + " - new game ");
-        System.out.println(ADD_HERO + " - Create Hero ");
-        System.out.println(SHOW_HERO + " - Show Hero!");
-        System.out.println(EXIT + " - Exit game ");
+        for(Option option: Option.values()){
+            System.out.println(option);
+        }
     }
 
     private void addHero() {

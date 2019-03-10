@@ -18,7 +18,7 @@ public class DataReader {
         sc.useLocale(Locale.GERMANY);
     }
 
-    public int getint() {
+    public int getInt() {
         int number = sc.nextInt();
         sc.nextLine();
         return number;
@@ -35,14 +35,16 @@ public class DataReader {
         displayClass();
         String className = sc.nextLine();
         String heroClassName = setHeroParameters(className);
+        int level =1;
+        int exp = 0;
         if(heroClassName.equals("Paladyn")){
-            return new Paladyn(name, heroClassName);
+            return new Paladyn(name, heroClassName, level, exp);
         }else if(heroClassName.equals("Mag")){
-            return new Mag(name, heroClassName);
+            return new Mag(name, heroClassName, level, exp);
         }else if (heroClassName.equals("Lancer")){
-            return new Lancer(name, heroClassName);
+            return new Lancer(name, heroClassName, level, exp);
         }else
-        return new Hero(name, heroClassName);
+        return new Hero(name, heroClassName, level, exp);
     }
 
     private void displayClass() {

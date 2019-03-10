@@ -17,12 +17,20 @@ public class Library {
 
     public void printHero(){
         if(existedHero == 0){
-            System.out.println("brak bohaterów");
+            System.out.println("Brak bohaterów");
         }
         for (int i = 0; i < existedHero ; i++) {
-            System.out.println(heroes[i].toString());
+            System.out.println((i+1)+" -> "+heroes[i].getName()+" "+heroes[i].getClassName()
+                    +", level "+ heroes[i].getLevel());
         }
+        System.out.println();
     }
+
+    public Hero getHero(int index){
+        return heroes[index-1];
+    }
+
+
 
 
 }
