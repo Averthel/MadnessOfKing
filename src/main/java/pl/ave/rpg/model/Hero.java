@@ -17,6 +17,7 @@ public class Hero {
 
     }
 
+
     public String getName() {
         return name;
     }
@@ -50,6 +51,10 @@ public class Hero {
                 ", level=" + level +
                 ", experience=" + experience +
                 '}';
+    }
+
+    public String printEq(){
+        return null;
     }
 
     @Override

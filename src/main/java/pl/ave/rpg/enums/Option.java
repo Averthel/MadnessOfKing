@@ -1,4 +1,6 @@
-package pl.ave.rpg.Enum;
+package pl.ave.rpg.enums;
+
+import pl.ave.rpg.exception.NoSuchOptionException;
 
 public enum Option {
     EXIT(0, " - Exit game "),
@@ -28,7 +30,11 @@ public enum Option {
         return value + " - " + description;
     }
 
-    public static Option createFromInt(int option){
-         return Option.values()[option];
+    public static Option createFromInt(int option) throws NoSuchOptionException {
+        try {
+            return Option.values()[option];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new NoSuchOptionException("Nie ma opcji o numerze: " + option);
+        }
     }
 }

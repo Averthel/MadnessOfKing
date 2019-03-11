@@ -9,19 +9,20 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class DataReader {
+    private Scanner sc = new Scanner(System.in);
+    private ConsolePrinter printer;
 
-    private Scanner sc;
 
-
-    public DataReader() {
-        sc = new Scanner(System.in);
-        sc.useLocale(Locale.GERMANY);
+    public DataReader(ConsolePrinter printer) {
+        this.printer = printer;
     }
 
     public int getInt() {
-        int number = sc.nextInt();
-        sc.nextLine();
-        return number;
+        try{
+            return sc.nextInt();
+        }finally {
+            sc.nextLine();
+        }
     }
 
     public void close() {
@@ -29,9 +30,9 @@ public class DataReader {
     }
 
     public Hero createHero() {
-        System.out.println("Podaj imię: ");
+        printer.printLine("Podaj imię: ");
         String name = sc.nextLine();
-        System.out.println("Wybierz klase: ");
+        printer.printLine("Wybierz klase: ");
         displayClass();
         String className = sc.nextLine();
         String heroClassName = setHeroParameters(className);
@@ -48,9 +49,9 @@ public class DataReader {
     }
 
     private void displayClass() {
-        System.out.println(1 + " - Paladyn ");
-        System.out.println(2 + " - Mag ");
-        System.out.println(3 + " - Lancer");
+        printer.printLine(1 + " - Paladyn ");
+        printer.printLine(2 + " - Mag ");
+        printer.printLine(3 + " - Lancer");
     }
 
     private String setHeroParameters(String className) {

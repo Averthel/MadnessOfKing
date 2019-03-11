@@ -50,6 +50,22 @@ public class Lancer extends Hero {
     }
 
     @Override
+    public String printEq(){
+        StringBuilder builder = new StringBuilder();
+        int freeSpace = 0;
+        for(int i=0; i<eq.length; i++){
+            if(eq[i] == null){
+                freeSpace++;
+                continue;
+            }
+            builder.append(", ");
+        }
+        builder.append("\n");
+        builder.append("Liczba wolnych miejsc w ekwpinku: "+freeSpace);
+        return builder.toString();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Lancer)) return false;

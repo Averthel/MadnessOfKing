@@ -1,54 +1,79 @@
 package pl.ave.rpg.app;
 
 
-import pl.ave.rpg.Enum.Option;
+import pl.ave.rpg.enums.Option;
+import pl.ave.rpg.exception.NoSuchOptionException;
 import pl.ave.rpg.model.Hero;
 import pl.ave.rpg.model.Library;
+import pl.ave.rpg.util.ConsolePrinter;
 import pl.ave.rpg.util.DataReader;
+
+import java.util.InputMismatchException;
 
 
 public class GameControl {
-    private static final int EXIT = 0;
-    private static final int NEW_GAME = 1;
-    private static final int ADD_HERO = 2;
-    private static final int SHOW_HERO = 3;
+    private ConsolePrinter printer = new ConsolePrinter();
+    private DataReader reader = new DataReader(printer);
 
-    DataReader reader = new DataReader();
     private Library library = new Library();
 
 
-
-    public void controlLoop()  {
+    public void controlLoop() {
         Option option;
-
-        displayMenu();
-        while ((option = Option.createFromInt(reader.getInt())) != Option.EXIT) {
+        do {
+            displayMenu();
+            option = getOption();
             if (option == Option.NEW_GAME) {
-                Test ts = new Test();
-                ts.start(library);
+
                 break;
             } else if (option == Option.ADD_HERO) {
                 addHero();
             } else if (option == Option.SHOW_HERO) {
-                library.printHero();
+                showHero();
             } else {
                 System.out.println("Ups! wygląda na to, że nie ma takiej opcji");
             }
-            displayMenu();
-        }
+        } while (option != Option.EXIT);
         System.out.println("Koniec gry, papa!");
         reader.close();
 
     }
 
+    private Option getOption() {
+        boolean optionOk = false;
+        Option option = null;
+        while (!optionOk) {
+            try {
+                option = Option.createFromInt(reader.getInt());
+                optionOk = true;
+            } catch (NoSuchOptionException e) {
+                printer.printLine(e.getMessage() + ", podaj ponownie:");
+            } catch (InputMismatchException e) {
+                printer.printLine("Wprowadzono wartość, która nie jest liczbą, podaj ponownie:");
+            }
+        }
+        return option;
+    }
+
     private void displayMenu() {
-        for(Option option: Option.values()){
-            System.out.println(option);
+        for (Option option : Option.values()) {
+            printer.printLine(option.toString());
         }
     }
 
     private void addHero() {
-        Hero hero = reader.createHero();
-        library.addHero(hero);
+        try {
+            Hero hero = reader.createHero();
+            library.addHero(hero);
+        } catch (InputMismatchException e) {
+            printer.printLine("NIe udało się stworzyć bohatera, wprowadzono niepoprawne dane");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            printer.printLine("Osiągnięto limit bohaterów");
+        }
+    }
+
+    private void showHero() {
+        Hero[] hero = library.getAllHero();
+        printer.printHeroList(hero);
     }
 }
