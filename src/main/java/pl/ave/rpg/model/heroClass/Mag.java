@@ -56,7 +56,6 @@ public class Mag extends Hero {
                 "hp=" + hp +
                 ", str=" + str +
                 ", mana=" + mana +
-                ", eq=" + Arrays.toString(eq) +
                 '}';
     }
 

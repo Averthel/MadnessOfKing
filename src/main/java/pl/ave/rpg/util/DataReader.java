@@ -1,26 +1,32 @@
 package pl.ave.rpg.util;
 
+import pl.ave.rpg.file.FileManager;
 import pl.ave.rpg.model.Hero;
 import pl.ave.rpg.model.heroClass.Lancer;
 import pl.ave.rpg.model.heroClass.Mag;
 import pl.ave.rpg.model.heroClass.Paladyn;
+import pl.ave.rpg.model.heroClass.Vagabond;
 
-import java.util.Locale;
+
 import java.util.Scanner;
 
 public class DataReader {
     private Scanner sc = new Scanner(System.in);
     private ConsolePrinter printer;
-
+    private FileManager fileManager;
 
     public DataReader(ConsolePrinter printer) {
         this.printer = printer;
     }
 
+    public String getString(){
+        return sc.nextLine();
+    }
+
     public int getInt() {
-        try{
+        try {
             return sc.nextInt();
-        }finally {
+        } finally {
             sc.nextLine();
         }
     }
@@ -36,16 +42,18 @@ public class DataReader {
         displayClass();
         String className = sc.nextLine();
         String heroClassName = setHeroParameters(className);
-        int level =1;
+        int level = 1;
         int exp = 0;
-        if(heroClassName.equals("Paladyn")){
+        if (heroClassName.equals("Paladyn")) {
             return new Paladyn(name, heroClassName, level, exp);
-        }else if(heroClassName.equals("Mag")){
+        } else if (heroClassName.equals("Mag")) {
             return new Mag(name, heroClassName, level, exp);
-        }else if (heroClassName.equals("Lancer")){
+        } else if (heroClassName.equals("Lancer")) {
             return new Lancer(name, heroClassName, level, exp);
-        }else
-        return new Hero(name, heroClassName, level, exp);
+        } else {
+            printer.printLine("Ups... coś poszło nie tak, twoja postać została włóczęgą!");
+            return new Vagabond(name, heroClassName, level, exp);
+        }
     }
 
     private void displayClass() {
@@ -62,7 +70,8 @@ public class DataReader {
         } else if (className.equals("3") || className.equalsIgnoreCase("Lancer")) {
             return "Lancer";
         } else {
-            return "Chytra baba z Radomia";
+            return "Włóczęga";
         }
     }
+
 }

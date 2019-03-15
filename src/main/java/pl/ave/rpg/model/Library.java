@@ -1,6 +1,8 @@
 package pl.ave.rpg.model;
 
-public class Library {
+import java.io.Serializable;
+
+public class Library implements Serializable {
     private static final int MAX_HERO = 10;
     private Hero[] heroes = new Hero[MAX_HERO];
     private int existedHero;

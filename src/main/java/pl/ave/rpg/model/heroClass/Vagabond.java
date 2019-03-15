@@ -4,15 +4,16 @@ import pl.ave.rpg.model.Hero;
 
 import java.util.Arrays;
 
-public class Lancer extends Hero {
+public class Vagabond extends Hero {
     private int hp;
     private int str;
     private String[] eq;
 
-    public Lancer(String name, String className, int level, int exp){
+
+    public Vagabond(String name, String className, int level, int exp) {
         super(name, className, level, exp);
-        hp = 120;
-        str = 15;
+        hp = 80;
+        str = 10;
         eq = new String[10];
     }
 
@@ -42,7 +43,7 @@ public class Lancer extends Hero {
 
     @Override
     public String toString() {
-        return super.toString() + " {" +
+        return "Vagabond{" +
                 "hp=" + hp +
                 ", str=" + str +
                 '}';
@@ -67,15 +68,15 @@ public class Lancer extends Hero {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Lancer)) return false;
+        if (!(o instanceof Vagabond)) return false;
         if (!super.equals(o)) return false;
 
-        Lancer lancer = (Lancer) o;
+        Vagabond vagabond = (Vagabond) o;
 
-        if (getHp() != lancer.getHp()) return false;
-        if (getStr() != lancer.getStr()) return false;
+        if (getHp() != vagabond.getHp()) return false;
+        if (getStr() != vagabond.getStr()) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        return Arrays.equals(getEq(), lancer.getEq());
+        return Arrays.equals(getEq(), vagabond.getEq());
     }
 
     @Override

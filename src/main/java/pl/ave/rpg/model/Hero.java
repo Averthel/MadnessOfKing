@@ -1,8 +1,9 @@
 package pl.ave.rpg.model;
 
 
+import java.io.Serializable;
 
-public class Hero {
+public abstract class Hero  implements Serializable {
     private String name;
     private String className;
     private int level;
@@ -45,15 +46,12 @@ public class Hero {
 
     @Override
     public String toString() {
-        return "Hero{" +
-                "name='" + name + '\'' +
-                ", className='" + className + '\'' +
-                ", level=" + level +
-                ", experience=" + experience +
-                '}';
+        return "Bohater: " + getName() +
+                " " + " Klasa: " + getClassName() + "\n"+
+                "Statystyki => ";
     }
 
-    public String printEq(){
+    public String printEq() {
         return null;
     }
 
